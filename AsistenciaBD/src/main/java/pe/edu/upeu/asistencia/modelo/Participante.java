@@ -1,5 +1,6 @@
 package pe.edu.upeu.asistencia.modelo;
 
+import jakarta.persistence.*;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.StringProperty;
 import lombok.AllArgsConstructor;
@@ -12,14 +13,22 @@ import pe.edu.upeu.asistencia.enums.TipoParticipante;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@Entity
+@Table(name = "participante")
 public class Participante {
 
-    private  StringProperty dni;
-    private StringProperty nombre;
-    private StringProperty apellido;
+    @Id
+    private  String dni;
+    private String nombre;
+    private String apellido;
+
+    @Enumerated(EnumType.STRING)
     private Carrera carrera;
+
+    @Enumerated(EnumType.STRING)
     private TipoParticipante tipoParticipante;
-    private BooleanProperty estado;
+
+    private Boolean estado;
 
 }
 

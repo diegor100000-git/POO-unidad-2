@@ -63,7 +63,7 @@ public class ParticipanteController {
                 });
                 btnEliminar.setOnAction((event) -> {
                     Participante participante = getTableView().getItems().get(getIndex());
-                    eliminarParticipante(participante.getDni().getValue());
+                    eliminarParticipante(participante.getDni());
                 });
             }
            @Override
@@ -82,9 +82,9 @@ public class ParticipanteController {
     }
 
     public void listarParticipantes(){
-        dniCol.setCellValueFactory(cellData -> cellData.getValue().getDni());
-        nombreCol.setCellValueFactory(cellData -> cellData.getValue().getNombre());
-        apellidoCol.setCellValueFactory(cellData -> cellData.getValue().getApellido());
+        dniCol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDni()));
+        nombreCol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNombre()));
+        apellidoCol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getApellido()));
         carreraCol.setCellValueFactory(cellData ->
                 new SimpleStringProperty(cellData.getValue().getCarrera().toString()));
 
@@ -99,11 +99,12 @@ public class ParticipanteController {
     @FXML
     public void crearParticipante(){
         Participante participante = new Participante();
-        participante.setDni(new SimpleStringProperty(txtDni.getText()));
-        participante.setNombre(new SimpleStringProperty(txtNombres.getText()));
-        participante.setApellido(new SimpleStringProperty(txtApellidos.getText()));
+        participante.setDni(txtDni.getText());
+        participante.setNombre(txtNombres.getText());
+        participante.setApellido(txtApellidos.getText());
         participante.setCarrera(cbxCarrera.getValue());
         participante.setTipoParticipante(cbxTipoParticipante.getValue());
+        participante.setEstado(true);
         if(indexE==-1){
             ps.save(participante);
         }else{
@@ -123,9 +124,9 @@ public class ParticipanteController {
     }
 
     public void editarParticipante(Participante p, int index){
-        txtDni.setText(p.getDni().getValue());
-        txtNombres.setText(p.getNombre().getValue());
-        txtApellidos.setText(p.getApellido().getValue());
+        txtDni.setText(p.getDni());
+        txtNombres.setText(p.getNombre());
+        txtApellidos.setText(p.getApellido());
         cbxCarrera.getSelectionModel().select(p.getCarrera());
         cbxTipoParticipante.getSelectionModel().select(p.getTipoParticipante());
         indexE=index;
