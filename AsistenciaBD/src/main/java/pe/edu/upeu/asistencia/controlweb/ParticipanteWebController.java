@@ -1,4 +1,4 @@
-package controlweb;
+package pe.edu.upeu.asistencia.controlweb;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,7 +24,6 @@ public class ParticipanteWebController {
         model.addAttribute("title", "Lista de Participantes");
         return "layout"; // plantilla Thymeleaf
     }
-
     @GetMapping("/new")
     public String nuevo(Model model) {
         model.addAttribute("participante", new Participante());
